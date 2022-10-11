@@ -237,22 +237,80 @@ void deleteNode(Node *p, int index)
         delete p;
     }
 }
+
+int cheackLLSorted(struct Node *p)
+{
+    int x = -65536;
+    while (p != NULL)
+    {
+        if (p->value < x)
+        {
+            return 0;
+        }
+        x = p->value;
+        p = p->next;
+    }
+    return 1;
+}
+
+int deleteDublicateNode(struct Node *p)
+{
+    struct Node *q = first->next;
+    while (q != NULL)
+    {
+
+        if (p->value != q->value)
+        {
+            p = q;
+            q = q->next;
+        }
+        else{
+            p->next = q->next;
+            delete q;
+            q = p->next;
+        }
+    }
+    return 0;
+}
+void reverseLinkedList(){
+    struct Node *p,*q,*r;
+    p = first;
+    q = r = NULL;
+
+    while (p != NULL)
+    {
+        r = q;
+        q = p;
+        p = p->next;
+        q->next = r;
+    }
+    first = q;
+}
 int main()
 {
     Node *temp = NULL;
-    int A[] = {3, 15, 48, 51, 59};
+    int A[] = {15, 15, 84, 84, 51, 59};
     int x;
-    create(A, 5);
-    insertLast(5);
-    insertLast(5);
-    insertLast(5);               // 3 15 48 50 84 51 59 5 5 5
-    insertNewnode(first, 3, 84); // 3 15 48 50 84 51 59 5 5 5
-    insertNodeinSortedLL(first, 2);
+    create(A, 6);
+    // insertLast(5);
+    // insertLast(5);
+    // insertLast(5);               // 3 15 48 50 84 51 59 5 5 5
+    // insertNewnode(first, 3, 49); // 3 15 48 50 84 51 59 5 5 5
+    // insertNodeinSortedLL(first, 2);
+    // deleteDublicateNode(first); //15,84,51
+    // reverseLinkedList();        //59 51 84 84 15 15 
     display(first);            // 3 15 48 50 84 51 59 5 5 5
     displayByRecursion(first); // 5 5 5 59 51 84 50 48 15 3
-    deleteNode(first, 2);
-    display(first);
-    // cout << "\nNodes : " << count(first);
+    // deleteNode(first, 2);
+    // if(cheackLLSorted(first)){ //cheack wether linkedlist is sort or not..
+    //     cout << "\nLinkedList is sorted";
+    // }
+    // else{
+    //     cout << "\nLinkedList is not sorted";
+    // }
+    // display(first);
+
+    // cout << "\nNodes : " << count(first);2
     // cout << "\nSum : " << add(first, 5);
     // cout << "\nMaximumNode : " << max(first, 5);
     // cout << "\nWhich element 's position do you want ? -> ";
