@@ -3,7 +3,7 @@
 #include <iostream>
 using namespace std;
 
-// Creating a node
+// Creating a node..
 struct Node
 {
     int value;
@@ -11,8 +11,9 @@ struct Node
 };
 
 struct Node *first = 0;
+struct Node *second = 0;
 
-void create(int a[], int n)
+void createA(int a[], int n)
 {
     int i;
     struct Node *t, *last;
@@ -25,6 +26,25 @@ void create(int a[], int n)
     {
         t = new Node();
         t->value = a[i];
+        t->next = NULL;
+        last->next = t;
+        last = t;
+    }
+}
+
+void createB(int b[], int n)
+{
+    int i;
+    struct Node *t, *last;
+    second = new Node();
+    second->value = b[0];
+    second->next = NULL;
+    last = second;
+
+    for (i = 1; i < n; i++)
+    {
+        t = new Node();
+        t->value = b[i];
         t->next = NULL;
         last->next = t;
         last = t;
@@ -265,7 +285,8 @@ int deleteDublicateNode(struct Node *p)
             p = q;
             q = q->next;
         }
-        else{
+        else
+        {
             p->next = q->next;
             delete q;
             q = p->next;
@@ -273,8 +294,9 @@ int deleteDublicateNode(struct Node *p)
     }
     return 0;
 }
-void reverseLinkedList(){
-    struct Node *p,*q,*r;
+void reverseLinkedList()
+{
+    struct Node *p, *q, *r;
     p = first;
     q = r = NULL;
 
@@ -287,26 +309,76 @@ void reverseLinkedList(){
     }
     first = q;
 }
+
+void mergindLinkedList(struct Node *f, struct Node *s)
+{
+    struct Node *t, *last;
+    t = last = NULL;
+
+    if (f->value < s->value)
+    {
+        last = t = f;
+        f = f->next;
+        last->next = NULL;
+    }
+    else
+    {
+        last = t = s;
+        s = s->next;
+        last->next = NULL;
+    }
+    if (s != NULL)
+    {
+        last->next = s;
+    }
+}
+
+int cheackLoop(struct Node *p)
+{
+    struct Node *a, *b;
+    a = b = p;
+    do
+    {
+        a = a->next;
+        b = b->next;
+        b = b != NULL ? b = b->next : NULL;
+    } while (a && b);
+
+    return a == b ? 1 : 0;
+}
 int main()
 {
     Node *temp = NULL;
-    int A[] = {15, 15, 84, 84, 51, 59};
+    int A[] = {15, 20, 51, 59, 69};
+    int B[] = {5, 19, 45, 74, 84};
     int x;
-    create(A, 6);
+    createA(A, 5);
+    createB(B, 5);
     // insertLast(5);
     // insertLast(5);
     // insertLast(5);               // 3 15 48 50 84 51 59 5 5 5
     // insertNewnode(first, 3, 49); // 3 15 48 50 84 51 59 5 5 5
     // insertNodeinSortedLL(first, 2);
     // deleteDublicateNode(first); //15,84,51
-    // reverseLinkedList();        //59 51 84 84 15 15 
-    display(first);            // 3 15 48 50 84 51 59 5 5 5
-    displayByRecursion(first); // 5 5 5 59 51 84 50 48 15 3
+    // reverseLinkedList();        //59 51 84 84 15 15
+    // mergindLinkedList(first, second); // 5 15 19 20 45 51 59 69 74 84
+    // display(first); // 3 15 48 50 84 51 59 5 5 5
+    display(second);
+    if (cheackLoop(first))
+    {
+        cout << "linked list is in loop !";
+    }
+    else
+    {
+        cout << "linkedList is linear";
+    }
+    // displayByRecursion(first); // 5 5 5 59 51 84 50 48 15 3
     // deleteNode(first, 2);
     // if(cheackLLSorted(first)){ //cheack wether linkedlist is sort or not..
     //     cout << "\nLinkedList is sorted";
     // }
     // else{
+
     //     cout << "\nLinkedList is not sorted";
     // }
     // display(first);
