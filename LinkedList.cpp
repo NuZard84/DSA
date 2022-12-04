@@ -99,10 +99,9 @@ int add(struct Node *p, int n)
 
 int max(struct Node *p, int n)
 {
-    int max = -32768
+    int max = -32768;
 
-        ;
-    while (p != NULL)
+        while (p != NULL)
     {
 
         if (max < p->value)
@@ -152,17 +151,22 @@ Node *moveToHeadLinearearch(Node *p, int key)
     Node *q = NULL;
     while (p != NULL)
     {
+         display(first);
         if (p->value == key)
         {
             q = p->next;
             p->next = first;
             first = p;
             cout << first->value << " IS FOUND !" << endl;
+             
             return NULL;
         }
         q = p;
         p = p->next;
+
+       
     }
+
     cout << "KEY IS NOT FOUND !";
     return NULL;
 }
@@ -188,6 +192,8 @@ Node *insertNewnode(Node *p, int index, int x)
         for (int i = 0; i < index - 1; i++)
         {
             p = p->next;
+
+
         }
         t->next = p->next;
         p->next = t;
@@ -302,10 +308,11 @@ void reverseLinkedList()
 
     while (p != NULL)
     {
-        r = q;
         q = p;
+        r = q;
         p = p->next;
         q->next = r;
+        
     }
     first = q;
 }
@@ -364,12 +371,13 @@ int main()
     // mergindLinkedList(first, second); // 5 15 19 20 45 51 59 69 74 84
     // display(first); // 3 15 48 50 84 51 59 5 5 5
     display(second);
+    display(first);
     if (cheackLoop(first))
     {
         cout << "linked list is in loop !";
     }
     else
-    {
+    {                          
         cout << "linkedList is linear";
     }
     // displayByRecursion(first); // 5 5 5 59 51 84 50 48 15 3
@@ -390,6 +398,7 @@ int main()
     // cin >> x;
     // temp = search(first, x);
     // temp = moveToHeadLinearearch(first, x);
+ 
 
     return 0;
 }
